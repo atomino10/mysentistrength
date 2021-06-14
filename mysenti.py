@@ -4,7 +4,7 @@ import csv
 from itertools import zip_longest
 from difflib import SequenceMatcher
 from hunspell import Hunspell
-
+import os
 def clearfiles():
 	data = pd.read_csv("dirtyreviews.csv")
 
@@ -49,7 +49,9 @@ def zerolistmaker(n):
     return listofzeros    
 #Hunspell check
 h = Hunspell('el_GR')
-clearfiles()
+if os.path.isfile('./dirtyreviews.csv'):
+	clearfiles()
+	print('Cleared')
 #File with reviews
 file_name="reviews.csv"
 stars_name="stars.csv"
