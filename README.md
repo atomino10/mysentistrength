@@ -2,8 +2,7 @@
 Python implementation of sentistrength algorithm
 
 
-mysenti.py is the code, reviews.csv are the reviews (2800), stars.csv are the stars of every review and in folder there are the lexicons and a .csv with results
-(also in xls because of some encoding issues)
+mysenti.py is the code, reviews.csv are the reviews (2800), stars.csv are the stars of every review and in folder finallexformysenti there are the lexicons and a .csv with results (also in xls because of some encoding issues).
 
 
 Inside folder skroutz_scraping and subfolder spiders there are the two crawlers, skroutz.py and skroutzmaincrawl.py.
