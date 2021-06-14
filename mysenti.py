@@ -202,8 +202,7 @@ with open('finallexformysenti\\finalgreekmysenti.csv', 'w',newline='',encoding='
 						if k!=():	
 							words=k[0]
 						break	
-				if words=="χαλια":
-					print(words.encode('utf8'))
+
 				#Negative word check. If found flag=True and next word emotion skipped
 				if words in neg:
 					kek=kek+1
