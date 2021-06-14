@@ -5,6 +5,18 @@ from itertools import zip_longest
 from difflib import SequenceMatcher
 from hunspell import Hunspell
 
+def clearfiles():
+	data = pd.read_csv("dirtyreviews.csv")
+
+	data=data.drop('topic',1)
+	data=data.drop('title',1)
+
+	data=data.dropna()
+	data=data.drop_duplicates(subset=['comment'], keep='first')
+	data['stars'].to_csv('stars.csv',header=['stars'],index=False)
+	data['comment'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
+
+
 def clean_accent(text):
 
     t = text
@@ -37,6 +49,7 @@ def zerolistmaker(n):
     return listofzeros    
 #Hunspell check
 h = Hunspell('el_GR')
+clearfiles()
 #File with reviews
 file_name="reviews.csv"
 stars_name="stars.csv"
@@ -187,7 +200,8 @@ with open('finallexformysenti\\finalgreekmysenti.csv', 'w',newline='',encoding='
 						if k!=():	
 							words=k[0]
 						break	
-
+				if words=="χαλια":
+					print(words.encode('utf8'))
 				#Negative word check. If found flag=True and next word emotion skipped
 				if words in neg:
 					kek=kek+1
