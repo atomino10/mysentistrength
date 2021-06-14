@@ -38,8 +38,8 @@ def zerolistmaker(n):
 #Hunspell check
 h = Hunspell('el_GR')
 #File with reviews
-file_name="reviews333.csv"
-stars_name="stars333.csv"
+file_name="reviews.csv"
+stars_name="stars.csv"
 with open(file_name, newline='\n',encoding='utf-8') as f:
     df = csv.reader(f)
     df = list(df)
