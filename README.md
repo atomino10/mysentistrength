@@ -2,4 +2,5 @@
 Python implementation of sentistrength algorithm
 
 
-mysenti.py is the code, reviews333.csv are the reviews, stars333.csv are the stars of every review and in folder there are the lexicon and a .csv with results
+mysenti.py is the code, reviews.csv are the reviews (2800), stars.csv are the stars of every review and in folder there are the lexicons and a .csv with results
+(also in xls because of some encoding issues)
