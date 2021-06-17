@@ -5,10 +5,8 @@ from itertools import zip_longest
 from difflib import SequenceMatcher
 from hunspell import Hunspell
 import os
-def splitfiles():
-	data = pd.read_csv("./dataset/reviewstars.csv")
-	data['stars'].to_csv('stars.csv',header=['stars'],index=False)
-	data['comment'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
+
+
 
 def clearfiles():
 	data = pd.read_csv("./dataset/dirtyreviews.csv")
@@ -18,7 +16,14 @@ def clearfiles():
 
 	data=data.dropna()
 	data=data.drop_duplicates(subset=['comment'], keep='first')
-	data.to_csv('reviewstars.csv',header=['stars','reviews'],index=False,encoding = "utf-8")
+	data.to_csv('./dataset/reviewstars.csv',header=['stars','reviews'],index=False,encoding = "utf-8")
+
+def splitfiles():
+	data = pd.read_csv("./dataset/reviewstars.csv")
+	data['stars'].to_csv('stars.csv',header=['stars'],index=False)
+	data['comment'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
+
+
 
 def clean_accent(text):
 
