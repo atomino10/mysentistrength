@@ -5,17 +5,20 @@ from itertools import zip_longest
 from difflib import SequenceMatcher
 from hunspell import Hunspell
 import os
+def splitfiles():
+	data = pd.read_csv("./dataset/reviewstars.csv")
+	data['stars'].to_csv('stars.csv',header=['stars'],index=False)
+	data['comment'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
+
 def clearfiles():
-	data = pd.read_csv("dirtyreviews.csv")
+	data = pd.read_csv("./dataset/dirtyreviews.csv")
 
 	data=data.drop('topic',1)
 	data=data.drop('title',1)
 
 	data=data.dropna()
 	data=data.drop_duplicates(subset=['comment'], keep='first')
-	data['stars'].to_csv('stars.csv',header=['stars'],index=False)
-	data['comment'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
-
+	data.to_csv('reviewstars.csv',header=['stars','reviews'],index=False,encoding = "utf-8")
 
 def clean_accent(text):
 
@@ -49,9 +52,10 @@ def zerolistmaker(n):
     return listofzeros    
 #Hunspell check
 h = Hunspell('el_GR')
-if os.path.isfile('./dirtyreviews.csv'):
-	clearfiles()
+if os.path.isfile('./dataset/dirtyreviews.csv'):
+	splitfiles()
 	print('Cleared')
+clearfiles()
 #File with reviews
 file_name="reviews.csv"
 stars_name="stars.csv"
