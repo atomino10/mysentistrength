@@ -57,10 +57,13 @@ def zerolistmaker(n):
     return listofzeros    
 #Hunspell check
 h = Hunspell('el_GR')
+#if a new .csv is downloaded and in folder
+#clear it and fix it
 if os.path.isfile('./dataset/dirtyreviews.csv'):
-	splitfiles()
+	clearfiles()
 	print('Cleared')
-clearfiles()
+#run split to have both reviews and stars .csv
+splitfiles()
 #File with reviews
 file_name="reviews.csv"
 stars_name="stars.csv"
@@ -76,7 +79,7 @@ with open(stars_name, newline='\n') as g:
 
 
  
-
+#if stars<3 =>-1, if stars=3 => 0, if stars >3 =>1
 stt=zerolistmaker(len(st)) #fill zeros
 for i in range(1,len(st)):
 
@@ -146,7 +149,7 @@ for i in range(0,len(neg)):
 	neg[i]=clean_accent(neg[i].lower())
 
 
-#Constants decl
+#Constants declarations
 suffix_prune_el=3 #prune in words
 string_min_score = 0.76 #matching score
 kek=0 #number of words that were checked
@@ -249,7 +252,8 @@ with open('finallexformysenti\\finalgreekmysenti.csv', 'w',newline='',encoding='
 			if sr<mins[i]:
 				mins[i]=sr	
 
-		#add min and max to produce the final score and label		
+		#add min and max to produce the final score and label	
+		#-1 if neg, 0 if neutr, 1 if positive	
 		summinmax[i]=maxs[i]+mins[i]
 		if summinmax[i]<=-1: 
 			summinmax[i]=-1
