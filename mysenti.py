@@ -21,7 +21,7 @@ def clearfiles():
 def splitfiles():
 	data = pd.read_csv("./dataset/reviewstars.csv")
 	data['stars'].to_csv('stars.csv',header=['stars'],index=False)
-	data['comment'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
+	data['reviews'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
 
 
 
@@ -52,6 +52,7 @@ def clean_accent(text):
 
    
     return t	
+
 def zerolistmaker(n):
     listofzeros = [0] * n
     return listofzeros    
@@ -77,20 +78,18 @@ with open(stars_name, newline='\n') as g:
 
         st.append(row[0]) # stars array
 
-
- 
 #if stars<3 =>-1, if stars=3 => 0, if stars >3 =>1
-stt=zerolistmaker(len(st)) #fill zeros
+stt=[]
 for i in range(1,len(st)):
 
 	a=int(st[i]) #temp int
 	if a<=2:
-		stt[i]=-1 
+		stt.append(-1)
 	elif a==3:
-		stt[i]=0
+		stt.append(0)
 	else:
-		stt[i]=1
-	#print(a,stt[i])
+		stt.append(1)
+	
 #stt (stars tag) contains positive,neutral,negative tags		
 
 #pharm lexicon
@@ -163,7 +162,7 @@ i=0 #an i
 stikshh=['.',' ','-','_','+','w','°','?',';','!',':','(',')'] #unwanted chars
 stiksh=['.',' ','-','_','+','w','°','?',';','!','0','1','2','3','4','5','6','7','8','9'] #unwanted chars that may repeat
 summinmax=[0]
-with open('finallexformysenti\\finalgreekmysenti.csv', 'w',newline='',encoding='utf8') as f: #results csv
+with open('dataset\\finalgreekmysenti.csv', 'w',newline='',encoding='utf8') as f: #results csv
 	writer = csv.writer(f, delimiter=',')
 	writer.writerow(('review','result','min','max','stars tag')) #row titles
 	for review in df: #every review
