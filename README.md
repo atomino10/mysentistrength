@@ -8,9 +8,10 @@ mysenti.py is the code, reviews.csv are the reviews (2800), stars.csv are the st
 Inside folder skroutz_scraping and subfolder spiders there are the two crawlers, amazon_reviews.py and amazon_reviews22.py.
 
 Run with command 
-scrapy runspider amazon_reviews_scraping/amazon_reviews_scraping/spiders/amazon_reviews.py -o links.csv
-and
-scrapy runspider amazon_reviews_scraping/amazon_reviews_scraping/spiders/amazon_reviews22.py -o dirtyreviews.csv
+</br>
+scrapy runspider amazon_reviews_scraping/amazon_reviews_scraping/spiders/amazon_reviews.py -o links.csv</br>
+and</br>
+scrapy runspider amazon_reviews_scraping/amazon_reviews_scraping/spiders/amazon_reviews22.py -o dirtyreviews.csv</br>
 FROM THE FOLDER amazon_reviews_scraping
 
 There is function clearfiles() inside mysenti.py that makes reviewstars.csv that is suitable for mysentistrength and function splitfiles() that makes reviews.csv and stars.csv. Note that if there is not a dirtyreviews.csv inside the folder, clearfiles() does not run.
