@@ -1,5 +1,5 @@
 # mysentistrength
-Python implementation of sentistrength algorithm
+Python implementation of <a href="http://sentistrength.wlv.ac.uk/" target="_blank">sentistrength algorithm</a>.
 
 
 mysenti.py is the code, reviews.csv are the reviews (2800), stars.csv are the stars of every review, in folder finallexformysenti there are the lexicons and in folder dataset there are a .csv with results from crawlers (dirtyreviews), a .csv with those results cleared (reviewstars) and a .csv with results(finalgreekmysenti).
