@@ -16,11 +16,30 @@ def clearfiles():
 
 	data=data.dropna()
 	data=data.drop_duplicates(subset=['comment'], keep='first')
-	data.to_csv('./dataset/reviewstars.csv',header=['stars','reviews'],index=False,encoding = "utf-8")
+	temp=[]
+	temp=data['stars'].values.tolist()
+	for i in range(0,len(data['stars'])):
+		
+		if int(temp[i])<=3:
+			temp[i]=0;
+		else:
+			temp[i]=1;	
+	data['stars']=temp
+
+	cols=data.columns.tolist()
+	cols = cols[-1:] + cols[:-1]
+	data=data[cols]
+
+	data.to_csv('./dataset/reviewstarsbin.csv',header=['reviews','sentiment'],index=False,encoding = "utf-8")
 
 def splitfiles():
-	data = pd.read_csv("./dataset/reviewstars.csv")
-	data['stars'].to_csv('stars.csv',header=['stars'],index=False)
+	data = pd.read_csv("./dataset/reviewstarsbin.csv")
+
+
+
+
+	data['sentiment'].to_csv('starsbin.csv',header=['sentiment'],index=False)
+
 	data['reviews'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
 
 
@@ -58,37 +77,45 @@ def zerolistmaker(n):
     return listofzeros    
 #Hunspell check
 h = Hunspell('el_GR')
-#if a new .csv is downloaded and in folder
+#if not a new .csv is downloaded and in folder
 #clear it and fix it
-if os.path.isfile('./dataset/dirtyreviews.csv'):
+if not(os.path.isfile('./dataset/reviewstarsbin.csv')):
 	clearfiles()
 	print('Cleared')
 #run split to have both reviews and stars .csv
 splitfiles()
 #File with reviews
 file_name="reviews.csv"
-stars_name="stars.csv"
+stars_name="starsbin.csv"
 with open(file_name, newline='\n',encoding='utf-8') as f:
     df = csv.reader(f)
     df = list(df)
     df = list(filter(None, df)) #list of reviews with no duplicates
 with open(stars_name, newline='\n') as g:
-    st = []
+    stt = []
     for row in csv.reader(g, delimiter=';'):
 
-        st.append(row[0]) # stars array
+        stt.append(row[0]) # stars array
 
-#if stars<3 =>-1, if stars=3 => 0, if stars >3 =>1
-stt=[]
-for i in range(1,len(st)):
+#if stars<3 =>0, if stars >3 =>1
+# stt=[]
+# for i in range(1,len(st)):
 
-	a=int(st[i]) #temp int
-	if a<=3:
-		stt.append(0)
-	#elif a==3:
-	#	stt.append(0)
-	else:
-		stt.append(1)
+# 	a=int(st[i]) #temp int
+# 	if os.path.isfile('./dataset/reviewstarsbin.csv'):
+# 		if a=0:
+# 			stt.append(0)
+# 		#elif a==3:
+# 		#	stt.append(0)
+# 		else:
+# 			stt.append(1)
+# 		break		
+# 	if a<=3:
+# 		stt.append(0)
+# 	#elif a==3:
+# 	#	stt.append(0)
+# 	else:
+# 		stt.append(1)
 	
 #stt (stars tag) contains positive,neutral,negative tags		
 
