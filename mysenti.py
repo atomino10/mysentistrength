@@ -83,10 +83,10 @@ stt=[]
 for i in range(1,len(st)):
 
 	a=int(st[i]) #temp int
-	if a<=2:
-		stt.append(-1)
-	elif a==3:
+	if a<=3:
 		stt.append(0)
+	#elif a==3:
+	#	stt.append(0)
 	else:
 		stt.append(1)
 	
@@ -254,12 +254,12 @@ with open('dataset\\finalgreekmysenti.csv', 'w',newline='',encoding='utf8') as f
 		#add min and max to produce the final score and label	
 		#-1 if neg, 0 if neutr, 1 if positive	
 		summinmax[i]=maxs[i]+mins[i]
-		if summinmax[i]<=-1: 
-			summinmax[i]=-1
+		if summinmax[i]<=0: 
+			summinmax[i]=0
 
-		elif -1 <summinmax[i]<1:
+		#elif -1 <summinmax[i]<1:
 			
-			summinmax[i]=0 
+		#	summinmax[i]=0 
 		else:
 			summinmax[i]=1	
 
