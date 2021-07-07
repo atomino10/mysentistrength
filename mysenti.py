@@ -191,7 +191,7 @@ stiksh=['.',' ','-','_','+','w','°','?',';','!','0','1','2','3','4','5','6','7'
 summinmax=[0]
 with open('dataset\\finalgreekmysenti.csv', 'w',newline='',encoding='utf8') as f: #results csv
 	writer = csv.writer(f, delimiter=',')
-	writer.writerow(('review','result','min','max','stars tag')) #row titles
+	writer.writerow(('review','mysentiment','min','max','sentiment')) #row titles
 	for review in df: #every review
 
 		review = [x.replace('\n', '') for x in review] #bgazw to /n pou ebale to opencsv
@@ -295,10 +295,26 @@ with open('dataset\\finalgreekmysenti.csv', 'w',newline='',encoding='utf8') as f
 		scorerev.append(0)	
 		mins.append(-1)	
 		maxs.append(1)	
-	print(kek,lel)	#words found,total words
-	print(kek/lel)	#ratio found
+
+	print('Words found in lexicon: ',kek,' Total words: ',lel)	#words found,total words
+	print('\n Ratio: ',kek/lel)	#ratio found
+
 	t=[df,summinmax,mins,maxs,stt] #exported data
 	export_data = zip_longest(*t) #zip and write
 	writer.writerows(export_data)			
 
+#######Prediction accuracy############################################################
+dataset='./dataset/finalgreekmysenti.csv'
 
+df=pd.read_csv(dataset)
+
+summinmax=[]
+stt=[]
+
+stt=df['sentiment']
+summinmax=df['mysentiment']
+cnt=0
+for i in range(0,len(summinmax)):
+	if summinmax[i]==stt[i]:
+		cnt=cnt+1
+print('Correct Predicted: ',cnt,' = ',cnt/len(summinmax)*100,'%')	
