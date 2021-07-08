@@ -97,27 +97,7 @@ with open(stars_name, newline='\n') as g:
 
         stt.append(row[0]) # stars array
 
-#if stars<3 =>0, if stars >3 =>1
-# stt=[]
-# for i in range(1,len(st)):
-
-# 	a=int(st[i]) #temp int
-# 	if os.path.isfile('./dataset/reviewstarsbin.csv'):
-# 		if a=0:
-# 			stt.append(0)
-# 		#elif a==3:
-# 		#	stt.append(0)
-# 		else:
-# 			stt.append(1)
-# 		break		
-# 	if a<=3:
-# 		stt.append(0)
-# 	#elif a==3:
-# 	#	stt.append(0)
-# 	else:
-# 		stt.append(1)
 	
-#stt (stars tag) contains positive,neutral,negative tags		
 
 #pharm lexicon
 with open('finallexformysenti\\EmotionLookupTable.txt', 'r', encoding='utf-8')  as file:    terms_list = file.read().splitlines()
@@ -308,13 +288,14 @@ dataset='./dataset/finalgreekmysenti.csv'
 
 df=pd.read_csv(dataset)
 
-summinmax=[]
-stt=[]
+res=[]
+sent=[]
 
-stt=df['sentiment']
-summinmax=df['mysentiment']
+sent=df['sentiment']
+res=df['mysentiment']
+
 cnt=0
-for i in range(0,len(summinmax)):
-	if summinmax[i]==stt[i]:
+for i in range(1,len(res)-1):
+	if int(res[i])==int(sent[i]):
 		cnt=cnt+1
 print('Correct Predicted: ',cnt,' = ',cnt/len(summinmax)*100,'%')	
