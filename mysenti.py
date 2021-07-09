@@ -7,7 +7,7 @@ from hunspell import Hunspell
 import os
 
 
-
+mode='bin'
 def clearfiles():
 	data = pd.read_csv("./dataset/dirtyreviews.csv")
 
@@ -18,30 +18,51 @@ def clearfiles():
 	data=data.drop_duplicates(subset=['comment'], keep='first')
 	temp=[]
 	temp=data['stars'].values.tolist()
-	for i in range(0,len(data['stars'])):
-		
-		if int(temp[i])<=3:
-			temp[i]=0;
-		else:
-			temp[i]=1;	
+	name='reviewstars'+mode
+	if mode=='bin':
+		for i in range(0,len(data['stars'])):
+			
+			if int(temp[i])<=3:
+				temp[i]=0;
+			else:
+				temp[i]=1;	
+
+	else:
+		for i in range(0,len(data['stars'])):
+			
+			if int(temp[i])<=2:
+				temp[i]=-1;
+			elif int(temp[i])=3:
+				temp[i]=0;
+			else:		
+				temp[i]=1;
 	data['stars']=temp
 
 	cols=data.columns.tolist()
 	cols = cols[-1:] + cols[:-1]
 	data=data[cols]
 
-	data.to_csv('./dataset/reviewstarsbin.csv',header=['reviews','sentiment'],index=False,encoding = "utf-8")
+	data.to_csv('./dataset/'+name+'.csv',header=['reviews','sentiment'],index=False,encoding = "utf-8")
 
-def splitfiles():
-	data = pd.read_csv("./dataset/reviewstarsbin.csv")
+def splitfiles(mode):
+	if mode=='bin':
+		data = pd.read_csv("./dataset/reviewstarsbin.csv")
 
 
 
 
-	data['sentiment'].to_csv('starsbin.csv',header=['sentiment'],index=False)
+		data['sentiment'].to_csv('starsbin.csv',header=['sentiment'],index=False)
 
-	data['reviews'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
+		data['reviews'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")
+	else:
+		data = pd.read_csv("./dataset/reviewstarsnonbin.csv")
 
+
+
+
+		data['sentiment'].to_csv('stars.csv',header=['sentiment'],index=False)
+
+		data['reviews'].to_csv('reviews.csv',header=['reviews'],index=False,encoding = "utf-8")		
 
 
 def clean_accent(text):
@@ -75,18 +96,25 @@ def clean_accent(text):
 def zerolistmaker(n):
     listofzeros = [0] * n
     return listofzeros    
+
+
 #Hunspell check
 h = Hunspell('el_GR')
 #if not a new .csv is downloaded and in folder
 #clear it and fix it
 if not(os.path.isfile('./dataset/reviewstarsbin.csv')):
-	clearfiles()
+	clearfiles(mode)
 	print('Cleared')
 #run split to have both reviews and stars .csv
-splitfiles()
-#File with reviews
-file_name="reviews.csv"
-stars_name="starsbin.csv"
+splitfiles(mode)
+if mode=='nonbin':
+	#File with reviews
+	file_name="reviews.csv"
+	stars_name="stars.csv"
+else:
+	file_name="reviews.csv"
+	stars_name="starsbin.csv"
+
 with open(file_name, newline='\n',encoding='utf-8') as f:
     df = csv.reader(f)
     df = list(df)
@@ -169,7 +197,7 @@ i=0 #an i
 stikshh=['.',' ','-','_','+','w','°','?',';','!',':','(',')'] #unwanted chars
 stiksh=['.',' ','-','_','+','w','°','?',';','!','0','1','2','3','4','5','6','7','8','9'] #unwanted chars that may repeat
 summinmax=[0]
-with open('dataset\\finalgreekmysenti.csv', 'w',newline='',encoding='utf8') as f: #results csv
+with open('dataset\\finalgreekmysenti'+mode+'.csv', 'w',newline='',encoding='utf8') as f: #results csv
 	writer = csv.writer(f, delimiter=',')
 	writer.writerow(('review','mysentiment','min','max','sentiment')) #row titles
 	for review in df: #every review
@@ -284,7 +312,7 @@ with open('dataset\\finalgreekmysenti.csv', 'w',newline='',encoding='utf8') as f
 	writer.writerows(export_data)			
 
 #######Prediction accuracy############################################################
-dataset='./dataset/finalgreekmysenti.csv'
+dataset='./dataset/finalgreekmysenti'+mode+'.csv'
 
 df=pd.read_csv(dataset)
 

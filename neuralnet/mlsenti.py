@@ -8,37 +8,62 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Activation  
+from keras_visualizer import visualizer 
+from tensorflow.keras import layers 
 
-dataset='reviewstarsbin.csv'
-
-df=pd.read_csv(dataset)
-
-
-
-print(df.head(20))
+mode='nonbin'
 
 
-X=df['reviews'].values
-Y=df['sentiment'].values
 
-#script to normalize sentiment values to be equal
-#pos and neg sentiment are counted and their diff
-#is removed from X in pos reviews
+# dataset='reviewstars'+mode+'.csv'
 
-Z=len(df.loc[df['sentiment'] == 0])
-W=len(df.loc[df['sentiment'] == 1])
+# df=pd.read_csv(dataset)
+# #sort for easier normalisation
+# df=df.sort_values(by=['sentiment'], ascending=True)
 
-length=W-Z
-cnt=0;
-for i in range(0,len(X)):
-	if Y[i]==1:
-		Y=np.delete(Y,i,0)
-		X=np.delete(X,i,0)
-		cnt=cnt+1;
-	if cnt==length:
-		break;
 
-#################################################
+# print(df.head(20))
+
+
+# X=df['reviews'].values
+# Y=df['sentiment'].values
+
+# #script to normalize sentiment values to be equal
+# #pos and neg sentiment are counted and their diff
+# #is removed from X in pos reviews
+
+
+
+# if mode=='nonbin':
+# 	N=len(df.loc[df['sentiment'] == -1])
+# 	Z=len(df.loc[df['sentiment'] == 0])
+# 	P=len(df.loc[df['sentiment'] == 1])
+# 	length1=P-Z
+# 	length2=N-Z
+# 	X=X[length1:]
+# 	Y=Y[length1:]
+# 	a=len(X)
+# 	b=len(Y)
+# 	X=X[:(a-length2)]
+# 	Y=Y[:(b-length2)]
+	
+
+		
+
+		
+		
+
+# else:
+# 	Z=len(df.loc[df['sentiment'] == 0])
+# 	P=len(df.loc[df['sentiment'] == 1])	
+# 	length=P-Z
+# 	a=len(X)
+# 	b=len(Y)	
+# 	X=X[:(a-length)]
+# 	Y=Y[:(b-length)]	
+# ################################################
 # sns.countplot(Y)
 # plt.show(sns)
 
@@ -58,8 +83,8 @@ for i in range(0,len(X)):
 # model.summary()
 # history = model.fit(x_train, Y_train,validation_data=(x_test, Y_test),epochs=100,verbose=True,batch_size=16)
 
-# model.save('savedmodel')
-# np.save('savedmodel/savedmodel.npy',history.history)
+# model.save('savedmodel'+mode)
+# np.save('savedmodel'+mode+'/savedmodel'+mode+'.npy',history.history)
 
 
 
@@ -67,8 +92,10 @@ for i in range(0,len(X)):
 #################################################################################################################################
 #################################################################################################################################
 #plotsssssssssss
-model = tf.keras.models.load_model('savedmodel')
-history=np.load('savedmodel/savedmodel.npy',allow_pickle='TRUE').item()
+model = tf.keras.models.load_model('savedmodel'+mode)
+history=np.load('savedmodel'+mode+'/savedmodel'+mode+'.npy',allow_pickle='TRUE').item()
+#plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
+
 
 # list all data in history
 
