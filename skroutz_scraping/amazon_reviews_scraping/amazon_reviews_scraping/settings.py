@@ -9,6 +9,8 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+
+
 BOT_NAME = 'skroutz_reviews_scraping'
 
 SPIDER_MODULES = ['amazon_reviews_scraping.spiders']
@@ -16,7 +18,7 @@ NEWSPIDER_MODULE = 'amazon_reviews_scraping.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'AdsBot-Google (+http://www.google.com/adsbot.html)'#amazon_reviews_scraping (+http://www.yourdomain.com)'
+USER_AGENT = 'AUTH-SKG MASTER THESIS BOT'# (+http://www.google.com/adsbot.html)'#amazon_reviews_scraping (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -27,10 +29,13 @@ CONCURRENT_REQUESTS = 1
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 100
+DOWNLOAD_DELAY = 1000
 # The download delay setting will honor only one of:
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
 CONCURRENT_REQUESTS_PER_IP = 0
+
+
+
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -46,15 +51,15 @@ CONCURRENT_REQUESTS_PER_IP = 0
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'amazon_reviews_scraping.middlewares.AmazonReviewsScrapingSpiderMiddleware': 543,
-#}
+# SPIDER_MIDDLEWARES = {
+#     'amazon_reviews_scraping.middlewares.AmazonReviewsScrapingSpiderMiddleware': 543,
+# }
 
-# Enable or disable downloader middlewares
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'amazon_reviews_scraping.middlewares.AmazonReviewsScrapingDownloaderMiddleware': 543,
-#}
+# # Enable or disable downloader middlewares
+# # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
+# DOWNLOADER_MIDDLEWARES = {
+#     'amazon_reviews_scraping.middlewares.AmazonReviewsScrapingDownloaderMiddleware': 350,
+# }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html

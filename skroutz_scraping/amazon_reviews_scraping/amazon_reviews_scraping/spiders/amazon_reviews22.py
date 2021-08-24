@@ -8,7 +8,7 @@ from scrapy.utils.project import get_project_settings
 
 # Creating a new class to implement Spide
 class AmazonReviewsSpider(scrapy.Spider):
- 
+
     file_name = "links.csv"
 
     # Spider name
@@ -19,7 +19,7 @@ class AmazonReviewsSpider(scrapy.Spider):
     
     # Base URL for the MacBook air reviews
     #myBaseUrl = "https://www.skroutz.gr/s/20060269/Apple-iPhone-11-64GB-Black.html?from=sku_color_variations#reviews"
-    myBaseUrl="https://www.skroutz.gr/"
+    myBaseUrl="https://www.skroutz.gr"
     start_urls=[]
  
     df = pd.read_csv(file_name, sep="\t or ,")

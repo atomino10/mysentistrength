@@ -12,6 +12,7 @@ from tensorflow.keras.utils import plot_model
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Activation  
 from keras_visualizer import visualizer 
 from tensorflow.keras import layers 
+from keras.utils import np_utils
 
 mode='nonbin'
 
@@ -40,30 +41,47 @@ mode='nonbin'
 # 	N=len(df.loc[df['sentiment'] == -1])
 # 	Z=len(df.loc[df['sentiment'] == 0])
 # 	P=len(df.loc[df['sentiment'] == 1])
+# 	print(N,Z,P)
+# 	if (N<Z):
+# 		Z=N
+# 	print(N,Z,P)	
 # 	length1=P-Z
 # 	length2=N-Z
-# 	X=X[length1:]
-# 	Y=Y[length1:]
 # 	a=len(X)
-# 	b=len(Y)
-# 	X=X[:(a-length2)]
-# 	Y=Y[:(b-length2)]
-	
-
+# 	X=X[:(a-length1)]
+# 	Y=Y[:(a-length1)]
+# 	X=X[length2:]
+# 	Y=Y[length2:]
+# 	outp_node=3
+# 	losss='categorical_crossentropy'
 		
 
 		
 		
 
 # else:
+
 # 	Z=len(df.loc[df['sentiment'] == 0])
 # 	P=len(df.loc[df['sentiment'] == 1])	
-# 	length=P-Z
 # 	a=len(X)
-# 	b=len(Y)	
-# 	X=X[:(a-length)]
-# 	Y=Y[:(b-length)]	
-# ################################################
+# 	b=len(Y)
+# 	if P>Z:
+# 		length=P-Z
+# 		print(length)
+# 		X=X[:(a-length)]
+# 		Y=Y[:(b-length)]
+# 	else:
+
+# 		length=Z-P
+# 		print(length)
+# 		X=X[(a-length):]
+# 		Y=Y[(b-length):]
+
+	
+
+# 	losss='binary_crossentropy'
+# 	outp_node=1
+# ###############################################
 # sns.countplot(Y)
 # plt.show(sns)
 
@@ -73,13 +91,19 @@ mode='nonbin'
 # vec.fit(X_train.astype('U'))
 # x_train=vec.transform(X_train.astype('U'))
 # x_test=vec.transform(X_test.astype('U'))
+# if mode=='nonbin':
+# 	Y_test=Y_test+1 #because it does not like -1
+# 	Y_train=Y_train+1 #because it does not like -1
+
+# 	Y_train=np_utils.to_categorical(Y_train) #3 classes to categories for keras
+# 	Y_test=np_utils.to_categorical(Y_test)
 
 
 # model = Sequential()
 # model.add(Dense(16, input_dim=x_train.shape[1], activation='relu'))
 # model.add(Dense(16, activation='relu'))
-# model.add(Dense(1, activation='sigmoid'))
-# model.compile(loss='binary_crossentropy',optimizer='Adam',metrics=['accuracy'])
+# model.add(Dense(outp_node, activation='sigmoid'))
+# model.compile(loss=losss,optimizer='Adam',metrics=['accuracy'])
 # model.summary()
 # history = model.fit(x_train, Y_train,validation_data=(x_test, Y_test),epochs=100,verbose=True,batch_size=16)
 
