@@ -8,9 +8,9 @@ import os
 
 
 mode='bin'
-def clearfiles():
+def clearfiles(mode):
 	data = pd.read_csv("./dataset/dirtyreviews.csv")
-
+	
 	data=data.drop('topic',1)
 	data=data.drop('title',1)
 
@@ -32,7 +32,7 @@ def clearfiles():
 			
 			if int(temp[i])<=2:
 				temp[i]=-1;
-			elif int(temp[i])=3:
+			elif int(temp[i])==3:
 				temp[i]=0;
 			else:		
 				temp[i]=1;
