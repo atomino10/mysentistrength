@@ -101,8 +101,8 @@ def zerolistmaker(n):
 #Hunspell check
 h = Hunspell('el_GR')
 #if not a new .csv is downloaded and in folder
-#clear it and fix it
-if not(os.path.isfile('./dataset/reviewstarsbin.csv')):
+#clear it and fix i
+tif not(os.path.isfile('./dataset/reviewstarsbin.csv')): 
 	clearfiles(mode)
 	print('Cleared')
 #run split to have both reviews and stars .csv
